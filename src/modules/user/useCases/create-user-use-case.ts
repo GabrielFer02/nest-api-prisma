@@ -15,7 +15,6 @@ export class CreateUserUseCase {
 
   async execute(data: CreateUserRequest) {
     const user = new User({ ...data, password: await hash(data.password, 10) });
-
     await this.userRepository.create(user);
 
     return user;
