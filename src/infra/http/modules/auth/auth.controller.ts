@@ -7,13 +7,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthRequestModel } from './models/auth-request-model';
 
 @Controller()
 export class AuthController {
   @Post('signIn')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard('local'))
-  async signIn(@Request() request: any) {
+  async signIn(@Request() request: AuthRequestModel) {
     return request.user;
   }
 }
