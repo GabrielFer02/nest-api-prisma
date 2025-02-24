@@ -17,6 +17,6 @@
     "package.json": true,
     ".gitignore": true,
     "node_modules": true,
-    // "eslint.config.mjs": true
+    "eslint.config.mjs": true
   }
 }
