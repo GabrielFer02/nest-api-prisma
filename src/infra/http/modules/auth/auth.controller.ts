@@ -7,17 +7,18 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthRequestModel } from './models/auth-request-model';
 import { SignInUseCase } from 'src/modules/auth/UseCases/signInUseCase/signIn-use-case';
 import { localAuthGuard } from './guards/local-auth.guard';
-import { JwtAuthGuard } from './guards/jwt-auth-guard';
+import { Public } from './decorators/is-public';
+import { AuthenticatedRequestModel } from './models/authenticated-request-model';
 
 @Controller()
 export class AuthController {
   constructor(private signInUseCase: SignInUseCase) {}
 
   @Post('signIn')
+  @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(localAuthGuard)
   signIn(@Request() request: AuthRequestModel) {
@@ -29,8 +30,7 @@ export class AuthController {
   }
 
   @Get('test')
-  @UseGuards(JwtAuthGuard)
-  test() {
-    return 'teste';
+  test(@Request() request: AuthenticatedRequestModel) {
+    return request.user;
   }
 }
