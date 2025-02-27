@@ -8,9 +8,19 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  email    String   @unique
-  password String
+  id        String   @id
+  name      String
+  email     String   @unique
+  password  String
   createdAt DateTime
+  Note      Note[]
+}
+
+model Note {
+  id          String   @id
+  title       String
+  description String?
+  createdAt   DateTime
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
 }

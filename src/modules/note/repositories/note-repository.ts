@@ -1,0 +1,8 @@
+import { Note } from '../entities/note';
+
+export abstract class NoteRepository {
+  abstract create(note: Note): Promise<void>;
+  abstract findbyId(id: string): Promise<Note | null>;
+  abstract delete(id: string): Promise<void>;
+  abstract save(note: Note): Promise<void>;
+}
