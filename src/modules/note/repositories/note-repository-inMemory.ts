@@ -27,4 +27,14 @@ export class NoteRepositoryInMemory implements NoteRepository {
 
     if (noteIndex >= 0) this.notes[noteIndex] = note;
   }
+
+  async findManyByUserId(
+    userId: string,
+    page: number,
+    perPage: number,
+  ): Promise<Note[]> {
+    return this.notes
+      .filter((note) => note.userId === userId)
+      .slice(page - 1 * perPage, page * perPage);
+  }
 }
