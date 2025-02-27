@@ -36,7 +36,7 @@ export class Note {
   }
 
   set title(title: string) {
-    this.props.title = this.title;
+    this.props.title = title;
   }
 
   get description(): string | null {

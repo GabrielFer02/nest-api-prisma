@@ -20,7 +20,7 @@ describe('Edit Note', () => {
     noteRepositoryInMemory.notes = [note];
 
     const titleChanged = 'title changed';
-    const descriptionChanged = 'changed';
+    const descriptionChanged = 'mb changed';
 
     await editNoteUseCase.execute({
       title: titleChanged,
