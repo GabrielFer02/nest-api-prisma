@@ -43,7 +43,7 @@ export class Note {
     return this.props.description;
   }
 
-  set description(description: string) {
+  set description(description: string | null) {
     this.props.description = description;
   }
 

@@ -3,7 +3,7 @@ import { NoteRepository } from '../../repositories/note-repository';
 
 interface EdiNoteRequest {
   title: string;
-  description: string;
+  description?: string;
   noteId: string;
   userId: string;
 }
