@@ -1,8 +1,9 @@
 import { NoteRepositoryInMemory } from '../../repositories/note-repository-inMemory';
 import { makeNote } from '../../factories/makeNote';
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { EditNoteUseCase } from './edit-note-use-case';
 import { makeUser } from 'src/modules/user/factories/user-factory';
+import { NoteNoteFoundException } from '../../exceptions/note-notFound-exception';
+import { NoteWithoutPermissionException } from '../../exceptions/note-without-permission-exception';
 
 let noteRepositoryInMemory: NoteRepositoryInMemory;
 let editNoteUseCase: EditNoteUseCase;
@@ -43,7 +44,7 @@ describe('Edit Note', () => {
         userId: 'fakeId',
         description: 'mb aqui',
       });
-    }).rejects.toThrow(NotFoundException);
+    }).rejects.toThrow(NoteNoteFoundException);
   });
 
   it('Should be able to throw error when note has another user', async () => {
@@ -58,6 +59,6 @@ describe('Edit Note', () => {
         userId: 'fakeId',
         description: 'mbnpm',
       });
-    }).rejects.toThrow(UnauthorizedException);
+    }).rejects.toThrow(NoteWithoutPermissionException);
   });
 });

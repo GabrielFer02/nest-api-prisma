@@ -1,9 +1,7 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { NoteRepository } from '../../repositories/note-repository';
+import { NoteNoteFoundException } from '../../exceptions/note-notFound-exception';
+import { NoteWithoutPermissionException } from '../../exceptions/note-without-permission-exception';
 
 interface DeleteNoteRequest {
   noteId: string;
@@ -17,9 +15,10 @@ export class DeleteNoteUseCase {
   async execute({ noteId, userId }: DeleteNoteRequest) {
     const note = await this.noteRepository.findbyId(noteId);
 
-    if (!note) throw new NotFoundException();
+    if (!note) throw new NoteNoteFoundException();
 
-    if (note.userId !== userId) throw new UnauthorizedException();
+    if (note.userId !== userId)
+      throw new NoteWithoutPermissionException({ actionName: 'delete' });
 
     await this.noteRepository.delete(noteId);
   }
