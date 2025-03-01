@@ -6,6 +6,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { IS_PUBLIC_KEY } from '../decorators/is-public';
+import { InvalidAccessTokenException } from 'src/exceptions/invalid-access-token-exception';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -24,10 +25,11 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
 
-  handleRequest(err: any, user: any, info: any) {
+  handleRequest(err: any, user: any) {
     if (err || !user) {
-      throw err || new UnauthorizedException();
+      throw err || new InvalidAccessTokenException();
     }
+
     return user;
   }
 }

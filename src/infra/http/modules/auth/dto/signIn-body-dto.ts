@@ -1,12 +1,15 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsEmailCustom } from 'src/infra/http/classValidator/decorators/is-email-custom';
+import { IsNotEmptyCustom } from 'src/infra/http/classValidator/decorators/is-not-empty-custom';
+import { IsStringCustom } from 'src/infra/http/classValidator/decorators/is-string-custom';
+import { MinLengthCustom } from 'src/infra/http/classValidator/decorators/min-length-custom';
 
 export class SignInBody {
-  @IsNotEmpty()
-  @IsString()
-  @IsEmail()
+  @IsNotEmptyCustom()
+  @IsStringCustom()
+  @IsEmailCustom()
   email: string;
 
-  @IsString()
-  @MinLength(6)
+  @IsStringCustom()
+  @MinLengthCustom(6)
   password: string;
 }
